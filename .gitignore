@@ -1,0 +1,19 @@
+# Exclude large original cover images (37MB) — use images/covers/opt/ instead
+images/covers/*.jpg
+images/covers/*.jpeg
+images/covers/*.png
+
+# Keep the compressed opt/ versions and webp files
+!images/covers/opt/
+!images/covers/*.webp
+
+# Internal / credentials
+deploy.py
+.omc/
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
