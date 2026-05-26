@@ -987,7 +987,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Hamburger button */
 .nav-toggle {
-  display: none;
+  display: none !important;
   background: none;
   border: none;
   cursor: pointer;
@@ -999,7 +999,7 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 700px) {
   .nav { padding: 12px 18px; position: relative; }
-  .nav-toggle { display: block; }
+  .nav-toggle { display: block !important; }
   .nav-links { display: none; }
   .nav.nav-open .nav-links {
     display: flex;
