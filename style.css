@@ -1019,6 +1019,7 @@ a { text-decoration: none; color: inherit; }
   .hero-text h1 { font-size: 1.8rem; }
   .hero-rainbow { width: 200px; align-self: center; order: 3; }
   .hero-books { order: 2; }
+  .hero-heart { top: 16%; left: 87%; }
   .section { padding: 24px 18px; }
   .page-header { padding: 24px 18px 18px; }
   .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
