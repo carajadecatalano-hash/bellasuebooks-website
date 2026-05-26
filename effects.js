@@ -36,9 +36,13 @@ if (hero) {
     setTimeout(() => s.remove(), dur * 1000);
   }
 
-  setInterval(createSparkle, 380);
+  let sparkleInterval = setInterval(createSparkle, 380);
   // burst on load
   for (let i = 0; i < 6; i++) setTimeout(createSparkle, i * 120);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { clearInterval(sparkleInterval); }
+    else { sparkleInterval = setInterval(createSparkle, 380); }
+  });
 }
 
 // ── Button ripple on click ──────────────────────────────────────
@@ -146,7 +150,7 @@ if (heroH1) {
   // Sparkles off "magical"
   const magical = heroH1.querySelector('em');
   if (magical && hero) {
-    setInterval(() => {
+    const magicalFn = () => {
       const rect     = magical.getBoundingClientRect();
       const heroRect = hero.getBoundingClientRect();
       const s = document.createElement('span');
@@ -159,7 +163,12 @@ if (heroH1) {
       s.style.setProperty('--dur', dur + 's');
       hero.appendChild(s);
       setTimeout(() => s.remove(), dur * 1000);
-    }, 300);
+    };
+    let magicalInterval = setInterval(magicalFn, 300);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { clearInterval(magicalInterval); }
+      else { magicalInterval = setInterval(magicalFn, 300); }
+    });
   }
 }
 
@@ -347,8 +356,17 @@ window.addEventListener('load', () => {
   }
 
   // Spawn 2 petals per tick for a dense shower, staggered
-  setInterval(() => { spawnPetal(); if (Math.random() > 0.4) spawnPetal(); }, 160);
-  setInterval(spawnBlossomSparkle, 500);
+  let petalInterval = setInterval(() => { spawnPetal(); if (Math.random() > 0.4) spawnPetal(); }, 160);
+  let sparkleInterval2 = setInterval(spawnBlossomSparkle, 500);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearInterval(petalInterval);
+      clearInterval(sparkleInterval2);
+    } else {
+      petalInterval = setInterval(() => { spawnPetal(); if (Math.random() > 0.4) spawnPetal(); }, 160);
+      sparkleInterval2 = setInterval(spawnBlossomSparkle, 500);
+    }
+  });
   // Initial burst of petals from all zones
   for (let i = 0; i < 16; i++) setTimeout(spawnPetal, i * 80);
 })();
@@ -374,3 +392,20 @@ window.addEventListener('scroll', () => {
 scrollTopBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+// ── Mobile hamburger menu ───────────────────────────────────────
+const navToggle = document.querySelector('.nav-toggle');
+const nav = document.querySelector('.nav');
+if (navToggle && nav) {
+  navToggle.addEventListener('click', () => {
+    nav.classList.toggle('nav-open');
+    navToggle.textContent = nav.classList.contains('nav-open') ? '✕' : '☰';
+  });
+  // Close on link click
+  nav.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      nav.classList.remove('nav-open');
+      navToggle.textContent = '☰';
+    });
+  });
+}

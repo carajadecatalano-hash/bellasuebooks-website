@@ -455,7 +455,8 @@ a { text-decoration: none; color: inherit; }
 
 /* 3D tilt — perspective set on parent */
 .book-grid { perspective: 800px; }
-.book-card { transform-style: preserve-3d; will-change: transform; }
+.book-card { transform-style: preserve-3d; }
+.book-card:hover { will-change: transform; }
 
 /* Button pop on click */
 @keyframes btnPop {
@@ -984,9 +985,35 @@ a { text-decoration: none; color: inherit; }
   .hero-book { width: 88px; }
 }
 
+/* Hamburger button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--pink);
+}
+
 @media (max-width: 700px) {
-  .nav { padding: 12px 18px; }
+  .nav { padding: 12px 18px; position: relative; }
+  .nav-toggle { display: block; }
   .nav-links { display: none; }
+  .nav.nav-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    padding: 10px 18px 14px;
+    gap: 4px;
+    z-index: 200;
+  }
+  .nav.nav-open .nav-links a { width: 100%; text-align: left; }
   .hero { flex-direction: column; padding: 28px 18px; align-items: center; }
   .hero-text { width: 100%; }
   .hero-text h1 { font-size: 1.8rem; }
